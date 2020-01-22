@@ -7,13 +7,23 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/showFragment"
+        android:id="@+id/newFragmentOnce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show fragment"
+        android:text="Show new fragment once"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/newFragmentTwice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Show new fragment twice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newFragmentOnce" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"

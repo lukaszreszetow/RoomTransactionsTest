@@ -1,51 +1,47 @@
 package com.example.roomtransactionstest
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
-import com.example.roomtransactionstest.persistance.AppDatabase
 import com.example.roomtransactionstest.persistance.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+
+    private var counter = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Database.db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database-name"
-        ).build()
-
-        showFragment.setOnClickListener {
-            val newFragment = SampleFragment()
-
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, newFragment)
-                .commit()
-
-            val newFragment2 = SampleFragment()
-
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, newFragment2)
-                .commit()
+        newFragmentOnce.setOnClickListener {
+            replaceWithNewFragment()
         }
 
-        lifecycleScope.launch(Dispatchers.Default) {
-            Database.db?.userDao()?.insert(fakeUser)
+        newFragmentTwice.setOnClickListener {
+            replaceWithNewFragment()
+            replaceWithNewFragment()
+        }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            Database.db?.userDao()?.insert(User(Database.userId, Database.userName))
         }
     }
 
-    companion object {
-        val fakeUser = User(123, "fakeName")
+    private fun replaceWithNewFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragmentContainer, getNewSampleFragment())
+            .commit()
+    }
+
+    private fun getNewSampleFragment(): DataLoadingFragment {
+        return DataLoadingFragment().apply {
+            arguments = Bundle().apply {
+                putInt(DataLoadingFragment.COUNTER, counter++)
+            }
+        }
     }
 }
