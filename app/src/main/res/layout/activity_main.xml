@@ -7,31 +7,33 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/newFragmentOnce"
+        android:id="@+id/fetchOnce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show new fragment once"
+        android:text="Fetch user once"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/newFragmentTwice"
+        android:id="@+id/fetchTwice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="Show new fragment twice"
+        android:text="Fetch user twice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/newFragmentOnce" />
+        app:layout_constraintTop_toBottomOf="@id/fetchOnce" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/resultTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Application started"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/fetchTwice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
